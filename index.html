@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Szyfr Cezara</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .button-container {
+      text-align: center;
+      top: 100px;
+      position: absolute;
+      margin-bottom: 20px;
+    }
+
+    .button-container button {
+      margin: 0 10px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #wynik {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    #sprawozdanie{
+      width: 50%;
+      margin-top:150px;
+    }
+  </style>
+  <script>
+    function szyfrujTekst(tekst, przesuniecie) {
+      var zaszyfrowanyTekst = "";
+
+      for (var i = 0; i < tekst.length; i++) {
+        var znak = tekst[i];
+
+        if (znak.match(/[a-z]/i)) {
+          var kod = tekst.charCodeAt(i);
+
+          if (kod >= 65 && kod <= 90) {
+            znak = String.fromCharCode(((kod - 65 + przesuniecie) % 26) + 65);
+          } else if (kod >= 97 && kod <= 122) {
+            znak = String.fromCharCode(((kod - 97 + przesuniecie) % 26) + 97);
+          }
+        }
+
+        zaszyfrowanyTekst += znak;
+      }
+
+      return zaszyfrowanyTekst;
+    }
+
+    function zaszyfruj() {
+      var tekst = document.getElementById("tekst").value;
+      var przesuniecie = parseInt(document.getElementById("przesuniecie").value);
+
+      var zaszyfrowanyTekst = szyfrujTekst(tekst, przesuniecie);
+      document.getElementById("wynik").textContent = "Zaszyfrowany tekst: " + zaszyfrowanyTekst;
+    }
+
+  </script>
+</head>
+<body>
+  <div class="button-container">
+    <button onclick="pokazStrone()">Pokaż stronę</button>
+    <button onclick="pokazKod()">Pokaż kod JavaScript</button>
+    <button onclick="pokazSprawozdanie()">Pokaż sprawozdanie</button>
+  </div>
+
+
+  <div id="strona" style="display: none;">
+  <h1>Szyfr Cezara</h1>
+
+  <label for="tekst">Tekst do zaszyfrowania:</label>
+  <input type="text" id="tekst" />
+
+  <label for="przesuniecie">Przesunięcie:</label>
+  <input type="number" id="przesuniecie" />
+
+  <button onclick="zaszyfruj()">Zaszyfruj</button>
+
+  <p id="wynik"></p>
+
+
+  </div>
+
+  <div id="kod" style="display: none;">
+    <pre>
+      &lt;script&gt;
+        function szyfrujTekst(tekst, przesuniecie) {
+          var zaszyfrowanyTekst = "";
+
+          for (var i = 0; i < tekst.length; i++) {
+            var znak = tekst[i];
+    
+            if (znak.match(/[a-z]/i)) {
+              var kod = tekst.charCodeAt(i);
+    
+              if (kod >= 65 && kod <= 90) {
+                znak = String.fromCharCode(((kod - 65 + przesuniecie) % 26) + 65);
+              } else if (kod >= 97 && kod <= 122) {
+                znak = String.fromCharCode(((kod - 97 + przesuniecie) % 26) + 97);
+              }
+            }
+    
+            zaszyfrowanyTekst += znak;
+          }
+    
+          return zaszyfrowanyTekst;
+        }
+  
+        function zaszyfruj() {
+          var tekst = document.getElementById("tekst").value;
+      var przesuniecie = parseInt(document.getElementById("przesuniecie").value);
+
+      var zaszyfrowanyTekst = szyfrujTekst(tekst, przesuniecie);
+      document.getElementById("wynik").textContent = "Zaszyfrowany tekst: " + zaszyfrowanyTekst;
+        }
+      &lt;/script&gt;
+    </pre>
+  </div>
+
+  <div id="sprawozdanie" style="display: none;">
+   <p>Sprawozdanie - Szyfr Cezara<br><br>
+Wprowadzenie<br>
+Celem tego projektu było stworzenie strony internetowej umożliwiającej szyfrowanie tekstu przy użyciu szyfru Cezara. Szyfr Cezara jest jednym z najprostszych szyfrów przesuwających, w którym każda litera tekstu jest zamieniana na inną literę o stałym przesunięciu. W ramach tego projektu wykorzystano języki HTML i JavaScript w celu implementacji strony oraz logiki szyfrowania.
+<br><br>
+Implementacja<br>
+Strona internetowa składa się z dwóch głównych komponentów: pliku HTML i skryptu JavaScript.<br><br>
+Plik HTML<br>
+Plik HTML stanowi strukturę strony internetowej. Zawiera formularz umożliwiający użytkownikowi wprowadzenie tekstu do zaszyfrowania oraz wybór przesunięcia. Na podstawie tych informacji użytkownik może zaszyfrować tekst. Plik HTML zawiera również element na stronie, w którym wyświetlany jest zaszyfrowany tekst.
+  <br><br>
+  Skrypt JavaScript<br>
+  Skrypt JavaScript odpowiada za logikę szyfrowania tekstu. Implementuje funkcję szyfrujTekst, która przyjmuje tekst i przesunięcie jako argumenty. Wewnątrz funkcji iterujemy po każdym znaku tekstu. Jeśli znak jest literą alfabetu, obliczamy nowy kod znaku na podstawie przesunięcia i zamieniamy go na odpowiadającą literę. Funkcja zwraca zaszyfrowany tekst.
+<br>Dodatkowo, skrypt JavaScript zawiera funkcję zaszyfruj, która jest wywoływana po kliknięciu przycisku "Zaszyfruj" na stronie. Funkcja pobiera tekst i przesunięcie wprowadzone przez użytkownika, wywołuje funkcję szyfrujTekst i wyświetla zaszyfrowany tekst na stronie.
+<br><br>
+Podsumowanie<br>
+Dzięki temu projektowi udało się stworzyć stronę internetową umożliwiającą szyfrowanie tekstu przy użyciu szyfru Cezara. Użytkownik może wprowadzić tekst do zaszyfrowania i wybrać przesunięcie, a następnie zobaczyć zaszyfrowany tekst na stronie. Implementacja opiera się na prostym pliku HTML, który definiuje strukturę strony, oraz skrypcie JavaScript, który zawiera logikę szyfrowania. Należy jednak pamiętać, że szyfr Cezara jest bardzo prostym szyfrem i nie zapewnia wysokiego poziomu bezpieczeństwa.
+</p>
+  </div>
+
+  <script>
+    function pokazStrone() {
+      document.getElementById("strona").style.display = "block";
+      document.getElementById("kod").style.display = "none";
+      document.getElementById("sprawozdanie").style.display = "none";
+    }
+
+    function pokazKod() {
+      document.getElementById("strona").style.display = "none";
+      document.getElementById("kod").style.display = "block";
+      document.getElementById("sprawozdanie").style.display = "none";
+    }
+
+    function pokazSprawozdanie() {
+      document.getElementById("strona").style.display = "none";
+      document.getElementById("kod").style.display = "none";
+      document.getElementById("sprawozdanie").style.display = "block";
+    }
+  </script>
+</body>
+</html>
